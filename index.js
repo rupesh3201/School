@@ -5,6 +5,7 @@ const app = express();
 
 app.use(express.json());
 
+// working api 
 app.get("/health", (req, res)=>{
 res.json({
     sucess: true,
