@@ -5,6 +5,18 @@ const app = express();
 
 app.use(express.json());
 
+const Students = []
+// student api 
+app.get("/students", (req, res)=>{
+    res.json({
+        sucess: true,
+        data: Students , 
+        msg : "server is running"
+        
+    })
+    }
+    )
+    
 // working api 
 app.get("/health", (req, res)=>{
 res.json({
