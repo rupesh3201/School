@@ -39,6 +39,22 @@ app.get("/students", (req, res)=>{
     })
     }
     )
+// post api students
+app.post("/students", (req, res)=>{
+    const {id , name , city} =req.body;
+    const student = {
+        id ,
+        name,
+        city,
+    };
+    res.json({
+        sucess: true,
+        data: student , 
+        msg : " Students  added  sucessfully"
+        
+    })
+    }
+    )
     
 // working api 
 app.get("/health", (req, res)=>{
