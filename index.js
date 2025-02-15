@@ -13,6 +13,14 @@ res.json({
 })
 }
 )
+
+app.get("*", (req, res)=>{
+    res.json({
+        sucess: false,
+        msg : "Path not found"
+    })
+    }
+    )
 const Port = 5003 ;
 app.listen(Port, ()=>
 {
