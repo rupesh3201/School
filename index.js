@@ -17,10 +17,16 @@ const Students = [
         city :  "nanded"
     }, 
     {
-        id : 1 ,
-        name : "Rupesh ", 
-        city :  "pune"
+        id : 3 ,
+        name : "harish ", 
+        city :  "Hingoli"
+    },
+    {
+        id : 4 ,
+        name : "Ganesh  ", 
+        city :  "Sangola"
     }
+
 
 ]
 // student api 
