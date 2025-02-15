@@ -1,4 +1,3 @@
-// setup done
 import express from 'express';
 
 const app = express();
@@ -6,97 +5,64 @@ const app = express();
 app.use(express.json());
 
 const Students = [
-    {
-        id : 1 ,
-        name : "Rupesh ", 
-        city :  "pune"
-    },
-    {
-        id : 2 ,
-        name : "nilesh ", 
-        city :  "nanded"
-    }, 
-    {
-        id : 3 ,
-        name : "harish ", 
-        city :  "Hingoli"
-    },
-    {
-        id : 4 ,
-        name : "Ganesh  ", 
-        city :  "Sangola"
-    }
+    { id: 1, name: "Rupesh", city: "Pune" },
+    { id: 2, name: "Nilesh", city: "Nanded" },
+    { id: 3, name: "Harish", city: "Hingoli" },
+    { id: 4, name: "Ganesh", city: "Sangola" }
+];
 
-
-]
-// student api 
-app.get("/students", (req, res)=>{
+// GET all students
+app.get("/students", (req, res) => {
     res.json({
-        sucess: true,
-        data: Students , 
-        msg : " Students  fetch sucessfully"
-        
-    })
-    }
-    )
-// post api students
-app.post("/students", (req, res)=>{
-    const {id , name , city} =req.body;
-    // validation
-    if (!id)
-    {
-        return res.json({
-            sucess:false,
-            msg : "id must required"
-        });
-    }
-    if (!name)
-    {
-            return res.json({
-                sucess:false,
-                msg : "name must required"
-            });
-    }
-    if (!city)
-    {
-            return res.json({
-                sucess:false,
-                msg : "city must required"
-            });
-    }
-    const student = {
-        id ,
-        name,
-        city,
-    };
-    res.json({
-        sucess: true,
-        data: student , 
-        msg : " Students  added  sucessfully"
-        
-    })
-    }
-    )
-    
-// working api 
-app.get("/health", (req, res)=>{
-res.json({
-    sucess: true,
-    msg : "server is running"
-})
-}
-)
+        success: true,
+        data: Students,
+        msg: "Students fetched successfully"
+    });
+});
 
-app.get("*", (req, res)=>{
-    res.json({
-        sucess: false,
-        msg : "Path not found"
-    })
-    }
-    )
-const Port = 5003 ;
-app.listen(Port, ()=>
-{
-    console.log(`server is running on https//localhost:${Port}`);
+// POST: Add a new student
+app.post("/students", (req, res) => {
+    const { id, name, city } = req.body;
 
+    // Validation checks
+    if (!id) {
+        return res.status(400).json({ success: false, msg: "ID is required" });
+    }
+    if (!name) {
+        return res.status(400).json({ success: false, msg: "Name is required" });
+    }
+    if (!city) {
+        return res.status(400).json({ success: false, msg: "City is required" });
+    }
+
+    // Check if student with the given ID already exists
+    const existingStudent = Students.find(stu => stu.id === id);
+    if (existingStudent) {
+        return res.status(400).json({ success: false, msg: "Student with this ID already exists" });
+    }
+
+    const newStudent = { id, name, city };
+    Students.push(newStudent);
+
+    res.status(201).json({
+        success: true,
+        data: newStudent,
+        msg: "Student added successfully"
+    });
+});
+
+// GET: Server health check
+app.get("/health", (req, res) => {
+    res.json({ success: true, msg: "Server is running" });
+});
+
+// Handle undefined routes
+app.all("*", (req, res) => {
+    res.status(404).json({ success: false, msg: "Path not found" });
+});
+
+// Start server
+const PORT = 5003;
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
