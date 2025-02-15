@@ -11,7 +11,7 @@ app.get("/students", (req, res)=>{
     res.json({
         sucess: true,
         data: Students , 
-        msg : "server is running"
+        msg : " Students  fetch sucessfully"
         
     })
     }
