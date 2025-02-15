@@ -42,6 +42,28 @@ app.get("/students", (req, res)=>{
 // post api students
 app.post("/students", (req, res)=>{
     const {id , name , city} =req.body;
+    // validation
+    if (!id)
+    {
+        return res.json({
+            sucess:false,
+            msg : "id must required"
+        });
+    }
+    if (!name)
+    {
+            return res.json({
+                sucess:false,
+                msg : "name must required"
+            });
+    }
+    if (!city)
+    {
+            return res.json({
+                sucess:false,
+                msg : "city must required"
+            });
+    }
     const student = {
         id ,
         name,
