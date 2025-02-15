@@ -5,7 +5,24 @@ const app = express();
 
 app.use(express.json());
 
-const Students = []
+const Students = [
+    {
+        id : 1 ,
+        name : "Rupesh ", 
+        city :  "pune"
+    },
+    {
+        id : 2 ,
+        name : "nilesh ", 
+        city :  "nanded"
+    }, 
+    {
+        id : 1 ,
+        name : "Rupesh ", 
+        city :  "pune"
+    }
+
+]
 // student api 
 app.get("/students", (req, res)=>{
     res.json({
