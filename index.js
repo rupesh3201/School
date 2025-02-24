@@ -35,7 +35,7 @@ app.post("/students", (req, res) => {
         return res.status(400).json({ success: false, msg: "City is required" });
     }
 
-    // Check if student with the given ID already exists
+    // Check if student with the given ID already exists yes 
     const existingStudent = Students.find(stu => stu.id === id);
     if (existingStudent) {
         return res.status(400).json({ success: false, msg: "Student with this ID already exists" });
