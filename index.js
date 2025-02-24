@@ -16,7 +16,7 @@ const Students = [
 // 201 created resuoce
 // 401 unauthrozied
 // 402 forbidden 
-// 403 not found
+// 404 not found
 
 // GET all students
 app.get("/students", (req, res) => {
