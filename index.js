@@ -13,6 +13,7 @@ const Students = [
 
 // status codes 
 // 200 ok
+// 201 created resuoce
 // GET all students
 app.get("/students", (req, res) => {
     res.json({
