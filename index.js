@@ -1,6 +1,7 @@
 import express from 'express';
 
 const app = express();
+app.use(cros());
 
 app.use(express.json());
 
@@ -20,7 +21,8 @@ const Students = [
 // 404 not found
 // 500 internal server error
 // 502 bad gateway
-// 504
+// 504 gate way time out
+
 
 // GET all students
 app.get("/students", (req, res) => {
