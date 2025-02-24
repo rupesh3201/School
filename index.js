@@ -24,12 +24,10 @@ app.get("/students", (req, res) => {
 app.post("/students", (req, res) => {
     const { id, name, city } = req.body;
 
-    // Validation checks
-    if (!id) return res.status(400).json({ success: false, msg: "ID is required" });
-    if (!name) return res.status(400).json({ success: false, msg: "Name is required" });
-    if (!city) return res.status(400).json({ success: false, msg: "City is required" });
+    if (!id || !name || !city) {
+        return res.status(400).json({ success: false, msg: "ID, Name, and City are required" });
+    }
 
-    // Check if student with the given ID already exists
     const existingStudent = Students.find(stu => stu.id === id);
     if (existingStudent) {
         return res.status(400).json({ success: false, msg: "Student with this ID already exists" });
@@ -49,9 +47,7 @@ app.post("/students", (req, res) => {
 app.delete("/students/:id", (req, res) => {
     const studentId = parseInt(req.params.id);
 
-    // Find student index
     const studentIndex = Students.findIndex(student => student.id === studentId);
-
     if (studentIndex === -1) {
         return res.status(404).json({ success: false, msg: "Student not found" });
     }
@@ -63,19 +59,16 @@ app.delete("/students/:id", (req, res) => {
     });
 });
 
-// UPDATE: Modify student data
+// UPDATE: Modify student data (PUT)
 app.put("/students/:id", (req, res) => {
     const studentId = parseInt(req.params.id);
     const { name, city } = req.body;
 
-    // Find student index
     const studentIndex = Students.findIndex(student => student.id === studentId);
-
     if (studentIndex === -1) {
         return res.status(404).json({ success: false, msg: "Student not found" });
     }
 
-    // Update student details
     Students[studentIndex] = {
         id: studentId,
         name: name || Students[studentIndex].name,
@@ -86,6 +79,30 @@ app.put("/students/:id", (req, res) => {
         success: true,
         data: Students[studentIndex],
         msg: "Student updated successfully"
+    });
+});
+
+// UPDATE: Modify student city only (PATCH)
+app.patch("/students/city/:id", (req, res) => {
+    const studentId = parseInt(req.params.id);
+    const { city } = req.body;
+
+    const studentIndex = Students.findIndex(student => student.id === studentId);
+    if (studentIndex === -1) {
+        return res.status(404).json({ success: false, msg: "Student not found" });
+    }
+
+    if (!city) {
+        return res.status(400).json({ success: false, msg: "City is required" });
+    }
+
+    // Update only the city field
+    Students[studentIndex].city = city;
+
+    res.status(200).json({
+        success: true,
+        data: Students[studentIndex],
+        msg: "Student city updated successfully"
     });
 });
 
