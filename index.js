@@ -14,6 +14,7 @@ const Students = [
 // status codes 
 // 200 ok
 // 201 created resuoce
+// 400 bad request
 // 401 unauthrozied
 // 402 forbidden 
 // 404 not found
