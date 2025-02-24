@@ -18,6 +18,7 @@ const Students = [
 // 401 unauthrozied
 // 402 forbidden 
 // 404 not found
+// 500 internal server error
 
 // GET all students
 app.get("/students", (req, res) => {
