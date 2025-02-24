@@ -21,7 +21,7 @@ app.get("/students", (req, res) => {
 });
 
 // POST: Add a new student
-app.post("/students", (req, res) => {
+app.status(201).post("/students", (req, res) => {
     const { id, name, city } = req.body;
 
     if (!id || !name || !city) {
