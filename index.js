@@ -14,6 +14,7 @@ const Students = [
 // status codes 
 // 200 ok
 // 201 created resuoce
+// 401 unauthrozied
 // GET all students
 app.get("/students", (req, res) => {
     res.json({
