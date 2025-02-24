@@ -11,6 +11,8 @@ const Students = [
     { id: 4, name: "Ganesh", city: "Sangola" }
 ];
 
+// status codes 
+// 200 ok
 // GET all students
 app.get("/students", (req, res) => {
     res.json({
@@ -30,6 +32,7 @@ app.post("/students", (req, res) => {
 
     const existingStudent = Students.find(stu => stu.id === id);
     if (existingStudent) {
+        
         return res.status(400).json({ success: false, msg: "Student with this ID already exists" });
     }
 
