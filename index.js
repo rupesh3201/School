@@ -41,6 +41,32 @@ app.post("/students", (req, res) => {
         return res.status(400).json({ success: false, msg: "Student with this ID already exists" });
     }
 
+    // delete student  api
+    app.delete("/students/:id",(req,res)=>{
+        const {id} = req.params;
+        let studentindex = -1 ;
+        Students.map((Students,id)=>
+        {
+            if(Students.id == id)
+            {
+                studentindex = id ;
+            }
+
+        })
+        if(studentindex == -1)
+        {
+        return res.json({
+            success :false ,
+            msg : "student not found",
+        });
+    }
+    Students.splice(studentindex , 1);
+    res.json ({ 
+        success : true ,
+        msg : "student deleted sucessful",
+    })
+    })
+
     const newStudent = { id, name, city };
     Students.push(newStudent);
 
