@@ -35,37 +35,11 @@ app.post("/students", (req, res) => {
         return res.status(400).json({ success: false, msg: "City is required" });
     }
 
-    // Check if student with the given ID already exists yes 
+    // Check if student with the given ID already exists
     const existingStudent = Students.find(stu => stu.id === id);
     if (existingStudent) {
         return res.status(400).json({ success: false, msg: "Student with this ID already exists" });
     }
-
-    // delete student  api
-    app.delete("/students/:id",(req,res)=>{
-        const {id} = req.params;
-        let studentindex = -1 ;
-        Students.map((Students,id)=>
-        {
-            if(Students.id == id)
-            {
-                studentindex = id ;
-            }
-
-        })
-        if(studentindex == -1)
-        {
-        return res.json({
-            success :false ,
-            msg : "student not found",
-        });
-    }
-    Students.splice(studentindex , 1);
-    res.json ({ 
-        success : true ,
-        msg : "student deleted sucessful",
-    })
-    })
 
     const newStudent = { id, name, city };
     Students.push(newStudent);
@@ -74,6 +48,24 @@ app.post("/students", (req, res) => {
         success: true,
         data: newStudent,
         msg: "Student added successfully"
+    });
+});
+
+// DELETE: Remove a student
+app.delete("/students/:id", (req, res) => {
+    const studentId = parseInt(req.params.id);
+    
+    // Find student index
+    const studentIndex = Students.findIndex(student => student.id === studentId);
+
+    if (studentIndex === -1) {
+        return res.status(404).json({ success: false, msg: "Student not found" });
+    }
+
+    Students.splice(studentIndex, 1);
+    res.json({ 
+        success: true,
+        msg: "Student deleted successfully"
     });
 });
 
