@@ -19,6 +19,7 @@ const Students = [
 // 402 forbidden 
 // 404 not found
 // 500 internal server error
+// 502 bad gateway
 
 // GET all students
 app.get("/students", (req, res) => {
